@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+   <html xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+
+	<title>Suh Sport - Clientes</title>	
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" />
+	<link href="#" th:href="@{/css/general.css}" rel="stylesheet" />		
+	<link href="#" th:href="@{/css/select2.css}" rel="stylesheet" />
+	<script type="text/javascript" src="https://use.fontawesome.com/bb05e18015.js"></script>
+</head>
+
+<body>
+	<div th:replace="fragments/header :: header">...</div>
+	<div class="container">
+	
+	<h1 th:if="{${client.id} != 0}"> Cliente X</h1>
+	
+	<form action="#" th:action="@{/clients/addclient}" method="post" th:object="${client}">
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<label for="inputFirstName" class="col-form-label">Nombre</label> 
+				<input type="text" class="form-control" id="inputFirstName" placeholder="Nombre" th:field="*{firstName}" th:value="*{firstName}"/>
+			</div>	
+			<div class="form-group col-md-4">
+				<label for="inputLastName1" class="col-form-label">Primer apellido</label> 
+				<input type="text" class="form-control" id="inputLastName1" placeholder="Primer apellido" th:field="*{lastName1}" th:value="*{lastName1}" />
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputLastName2" class="col-form-label">Segundo apellido</label> 
+				<input type="text" class="form-control" id="inputLastName2" placeholder="egundo apellido" th:field="*{lastName2}" th:value="*{lastName2}" />
+			</div>	
+		</div>
+
+	
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<label for="inputEmail" class="col-form-label">Correo electrónico</label> 
+				<input type="email" class="form-control" id="inputEmail" placeholder="Correo electrónico" th:field="*{email}" th:value="*{email}" />
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputPhone" class="col-form-label">Teléfono</label>
+				<input type="tel" class="form-control" id="inputPhone" placeholder="Teléfono" th:field="*{phone}" th:value="*{phone}" />
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputZip" class="col-form-label">Código Postal</label> 
+				<input type="number" class="form-control" id="inputZip" placeholder="Código postal" th:field="*{zipCode}" th:value="*{zipCode}" />
+			</div>
+		</div>
+		
+<!-- 		<div class="form-row"> -->
+<!-- 			<div class="form-group col-md-4"> -->
+<!-- 				<label for="inputPassword4" class="col-form-label">Actividad</label>				 -->
+<!-- 				<select class="form-control" th:field="${activity.id}"  id="selectActivity"> -->
+<!-- 				    <option value="0" th:text="Selecciona una actividad" ></option> -->
+<!-- 				    <option th:each="activity : ${activities}" th:value="${activity.id}" th:text="${activity.name}"></option> -->
+<!-- 				</select> -->
+<!-- 			</div> -->
+<!-- 			<div class="form-group col-md-4"> -->
+<!-- 				<label for="inputZip" class="col-form-label">Cuota</label>  -->
+<!-- 				<select class="form-control" th:field="${fee.id}"  id="selectFee"> -->
+<!-- 				    <option value="0" th:text="Selecciona una actividad" ></option> -->
+<!-- 				    <option th:each="fee : ${fees}" th:value="${fee.id}" th:text="${fee.name}"></option> -->
+<!-- 				</select> -->
+<!-- 			</div> -->
+<!-- 			<div class="form-group col-md-4"> -->
+<!-- 				<label for="inputZip" class="col-form-label">Descuento</label>  -->
+<!-- 				<select class="form-control" th:field="${discount.id}"  id="selectDiscount"> -->
+<!-- 				    <option value="0" th:text="Selecciona una actividad" ></option> -->
+<!-- 				    <option th:each="discount : ${discounts}" th:value="${discount.id}" th:text="${discount.name}"></option> -->
+<!-- 				</select>			 -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+		
+
+		<button type="submit" class="btn btn-warning">Guardar</button>
+		<button type="reset" class="btn btn-defaulrr">Borrar</button>
+		<button type="button" class="btn btn-primary">Cancelar</button>		
+	</form>
+	</div>
+	<div th:replace="fragments/footer :: footer"></div>
+	
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="#" th:src="@{/js/select2.js}"></script>
+
+	<script type="text/javascript">
+		$('selectActivity').select2();
+	    $('selectFee').select2();
+	    $('selectDiscount').select2();
+	</script>
+
+	</body>
+</html>

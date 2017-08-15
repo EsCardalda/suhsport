@@ -36,6 +36,8 @@ public class Payment {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_fee", nullable = false)
 	private Fee fee;
+	
+	//TODO: Trasferencia bancaria????
 
 	public Payment() {
 		super();

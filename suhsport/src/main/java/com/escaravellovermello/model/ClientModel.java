@@ -1,66 +1,24 @@
-package com.escaravellovermello.entity;
+package com.escaravellovermello.model;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Pattern;
+public class ClientModel {
 
-@Entity
-@Table(name = "client")
-public class Client {
-
-	@Id
-	@GeneratedValue
-	@Column(name = "id_client")
 	private Integer id;
-
-	@Column(name = "first_name", nullable = false)
-	@Max(value = 50)
 	private String firstName;
-
-	@Column(name = "last_name_1", nullable = false)
-	@Max(value = 50)
 	private String lastName1;
-
-	@Column(name = "last_name_2")
-	@Max(value = 50)
 	private String lastName2;
-
-	@Column(name = "registration_date")
 	private Timestamp registrationDate;
-
-	@Column(name = "modification_date")
 	private Timestamp modificationDate;
-
-	@Column(name = "zip_code")
-	@Max(value=5)
 	private Integer zipCode;
-
-	@Column(name = "phone", nullable = false)
-	@Pattern(regexp = "\\d{9}")
 	private String phone;
-
-	@Column(name = "email")
-	@Pattern(regexp = "(([^<>()\\[\\]\\.,;:\\s@\\\"]+(\\.[^<>()\\[\\]\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@(([^<>()[\\]\\.,;:\\s@\\\"]+\\.)+[^<>()[\\]\\.,;:\\s@\\\"]{2,})")
 	private String email;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "client")
-	private Set<Payment> payment = new HashSet<Payment>();
-	
-	public Client() {
+	public ClientModel() {
 		super();
 	}
 
-	public Client(Integer id, String firstName, String lastName1, String lastName2, Timestamp registrationDate,
+	public ClientModel(Integer id, String firstName, String lastName1, String lastName2, Timestamp registrationDate,
 			Timestamp modificationDate, Integer zipCode, String phone, String email) {
 		super();
 		this.id = id;
@@ -148,9 +106,9 @@ public class Client {
 
 	@Override
 	public String toString() {
-		return "Client [id=" + id + ", firstName=" + firstName + ", lastName1=" + lastName1 + ", lastName2="
-				+ lastName2 + ", registrationDate=" + registrationDate + ", modificationDate=" + modificationDate
-				+ ", zipCode=" + zipCode + ", phone=" + phone + ", email=" + email + "]";
+		return "Client [id=" + id + ", firstName=" + firstName + ", lastName1=" + lastName1 + ", lastName2=" + lastName2
+				+ ", registrationDate=" + registrationDate + ", modificationDate=" + modificationDate + ", zipCode=" + zipCode
+				+ ", phone=" + phone + ", email=" + email + "]";
 	}
 
 }

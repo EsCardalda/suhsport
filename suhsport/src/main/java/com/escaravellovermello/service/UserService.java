@@ -1,4 +1,4 @@
-package com.escaravellovermello.service.implementation;
+package com.escaravellovermello.service;
 
 import java.util.ArrayList;
 import java.util.HashSet;
