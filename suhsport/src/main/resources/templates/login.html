@@ -48,6 +48,12 @@
 							</div>
 						</div>
 					</div>
+					<div class="form-check">
+					 	<label class="form-check-label">
+					     <input type="checkbox"  class="form-check-input" id="remember" name="remember-me" />
+					     Recordar
+					 	</label>
+					</div>
 
 					<div th:if="${error != null}" class="alert alert-danger" role="alert">Credenciales incorrectas</div>
 					<div th:if="${logout != null}" class="alert alert-info" role="alert">¡Hasta pronto!</div>
