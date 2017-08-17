@@ -18,13 +18,45 @@
 
 <body>
 	<div th:replace="fragments/header :: header">...</div>
+	<div class="container">
 
-	<a href="#" th:href="@{/clients/clientform}">
-		<button class="btn btn-lg btn-warning btn-block" type="submit">
-			<span class="glyphicon glyphicon-user" aria-hidden="true"></span> 
-			Nuevo cliente
-		</button>
-	</a>
+		<div class="row">
+			<div class="col">
+				<a href="#" th:href="@{/clients/clientform}" class="a-index">
+					<button class="btn btn-lg btn-block btn-index btn-new-client" type="submit">
+						<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+						Nuevo cliente
+					</button>
+				</a>
+			</div>
+			<div class="col">
+				<a href="#" th:href="@{/clients/clientform}" class="a-index">
+					<button class="btn btn-lg btn-success btn-block" type="submit">
+						<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+						Function 1
+					</button>
+				</a>
+			</div>
+			<div class="w-100"></div>
+			<div class="col">
+				<a href="#" th:href="@{/clients/clientform}" class="a-index">
+					<button class="btn btn-lg btn-info btn-block" type="submit">
+						<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+						Function 2
+					</button>
+				</a>
+			</div>
+			<div class="col">
+				<a href="#" th:href="@{/clients/clientform}" class="a-index">
+					<button class="btn btn-lg btn-dan btn-block" type="submit">
+						<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+						Function 3
+					</button>
+				</a>
+				</div>
+		</div>
+	</div>
+
 
 	<div th:replace="fragments/footer :: footer">...</div>
 
