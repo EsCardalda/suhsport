@@ -11,8 +11,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "client")
@@ -23,16 +25,20 @@ public class Client {
 	@Column(name = "id_client")
 	private Integer id;
 
-	@Column(name = "first_name", nullable = false)
-	@Max(value = 50)
+	@NotNull
+	@NotEmpty(message="No puede estar vacío")
+	@Size(max = 50, message="Máximo 50 caracteres")
+	@Column(name = "first_name", nullable = false, length = 50)
 	private String firstName;
 
-	@Column(name = "last_name_1", nullable = false)
-	@Max(value = 50)
+	@NotNull
+	@NotEmpty(message="No puede estar vacío")
+	@Size(max = 50 , message="Máximo 50 caracteres")
+	@Column(name = "last_name_1", nullable = false, length = 50)
 	private String lastName1;
 
-	@Column(name = "last_name_2")
-	@Max(value = 50)
+	@Size(max = 50, message="Máximo 50 caracteres")
+	@Column(name = "last_name_2", length = 50)
 	private String lastName2;
 
 	@Column(name = "registration_date")
@@ -41,21 +47,18 @@ public class Client {
 	@Column(name = "modification_date")
 	private Timestamp modificationDate;
 
-	@Column(name = "zip_code")
-	@Max(value=5)
+	@Column(name = "zip_code", length = 5)
 	private Integer zipCode;
-
-	@Column(name = "phone", nullable = false)
-	@Pattern(regexp = "\\d{9}")
+		
+	@Column(name = "phone", length=9)
 	private String phone;
 
 	@Column(name = "email")
-	@Pattern(regexp = "(([^<>()\\[\\]\\.,;:\\s@\\\"]+(\\.[^<>()\\[\\]\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@(([^<>()[\\]\\.,;:\\s@\\\"]+\\.)+[^<>()[\\]\\.,;:\\s@\\\"]{2,})")
 	private String email;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "client")
 	private Set<Payment> payment = new HashSet<Payment>();
-	
+
 	public Client() {
 		super();
 	}
@@ -148,9 +151,9 @@ public class Client {
 
 	@Override
 	public String toString() {
-		return "Client [id=" + id + ", firstName=" + firstName + ", lastName1=" + lastName1 + ", lastName2="
-				+ lastName2 + ", registrationDate=" + registrationDate + ", modificationDate=" + modificationDate
-				+ ", zipCode=" + zipCode + ", phone=" + phone + ", email=" + email + "]";
+		return "Client [id=" + id + ", firstName=" + firstName + ", lastName1=" + lastName1 + ", lastName2=" + lastName2
+				+ ", registrationDate=" + registrationDate + ", modificationDate=" + modificationDate + ", zipCode="
+				+ zipCode + ", phone=" + phone + ", email=" + email + "]";
 	}
 
 }

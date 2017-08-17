@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+   <html xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+
+	<title>Suh Sport - Clientes</title>	
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" />
+	<link href="#" th:href="@{/css/general.css}" rel="stylesheet" />
+	<script type="text/javascript" src="https://use.fontawesome.com/bb05e18015.js"></script>
+	
+</head>
+
+<body>
+	<div th:replace="fragments/header :: header">...</div>
+	<div class="container">
+		<div th:if="${result == 'add_fail'}" class="alert alert-danger alert-dismissible fade show" role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>			
+			<strong><i class="fa fa-exclamation-circle" aria-hidden="true"></i></strong> Error en el guradado de cliente	
+		</div>
+
+		<div th:if="${result == 'add_ok'}" class="alert alert-success alert-dismissible fade show"
+			role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>				
+			<strong><i class="fa fa-check-square-o" aria-hidden="true"></i></strong> Cliente guardado correctamente
+		</div>
+		
+		
+		<div th:if="${result == 'remove_fail'}" class="alert alert-danger alert-dismissible fade show"
+			role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>			
+			<strong><i class="fa fa-exclamation-circle" aria-hidden="true"></i></strong> Error en el borrado de cliente	
+		</div>
+
+		<div th:if="${result == 'remove_ok'}" class="alert alert-success alert-dismissible fade show"
+			role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>				
+			<strong><i class="fa fa-check-square-o" aria-hidden="true"></i></strong> Cliente borrado correctamente
+		</div>
+
+	
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h1>Lista de clientes</h1>
+			</div>
+
+			
+
+
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Nombre</th>
+						<th>Apellidos</th>
+<!-- 						<th>Actividad y cuota</th> -->
+<!-- 						<th>Último pago</th> -->
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="client : ${clients}">
+						<td><span th:text="${client.firstName}"></span></td>
+						<td><span th:text="${client.lastName1} + ' ' + ${client.lastName2}"></span></td>
+<!-- 						<td><span th:text="${client.phone}"></span></td> -->
+<!-- 						<td><span th:text="${client.city}"></span></td> -->
+						<td>
+							<a href="#" th:href="@{/clients/clientform?id=__${client.id}__}">
+								<button type="button" class="btn btn-default">
+									<i class="fa fa-pencil" aria-hidden="true"></i>
+								</button>
+							</a> 
+							<button type="button" class="btn btn-danger" th:attr="data-href=${client.id},data-name=${client.firstName}" data-toggle="modal" data-target="#clientModal" >															
+								<i class="fa fa-trash-o" aria-hidden="true"></i>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	
+	</div>
+
+	<div class="modal fade" id="clientModal" tabindex="-1" role="dialog" aria-labelledby="clientModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="clientModalLabel">Borrar cliente</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+				  ¿Deseas eliminar el cliente '<span class="delete-username"></span>'?			
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Cerrar</button>
+
+					<input type="hidden" id="deleteVersionHiddenId" name="deleteVersionHiddenId" value="0" /> 
+					<input type="hidden" id="deleteVersionHiddenName" name="deleteVersionHiddenName" value="0" /> 
+					
+					<a class="btn-delete" id="deleteVersionHiddenbtn">
+						<button type="button" class="btn btn-danger">Borrar</button>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:replace="fragments/footer :: footer">...</div>
+
+	<!-- /container -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$('#clientModal').on('show.bs.modal', function (e) {
+			$(this).find('.btn-delete').attr('href', $(e.relatedTarget).data('href'));
+		  	$('#deleteVersionHiddenId').val($(this).find('.btn-delete').attr('href'));
+
+			$(this).find('.btn-delete').attr('name', $(e.relatedTarget).data('name'));
+		  	$('.delete-username').text($(this).find('.btn-delete').attr('name'));
+		});
+		
+		$('#deleteVersionHiddenbtn').click(function (e){
+			  e.preventDefault();
+			  var id = $('#deleteVersionHiddenId').val();
+			  document.location.href = "/clients/removeclient?id=" + id;
+			});
+	</script>
+</body>
+</html>

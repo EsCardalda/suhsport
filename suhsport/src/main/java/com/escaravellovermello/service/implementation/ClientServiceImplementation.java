@@ -49,13 +49,26 @@ public class ClientServiceImplementation implements ClientService{
 	public ClientModel getClientModelById(Integer id) {
 		return clientConverter.entity2model(getClientById(id));
 	}
+	
 
 	@Override
-	public void removeClient(Integer id) {
+	public Client getClientByPhone(String phone) {
+		return clientRepository.findByPhone(phone);
+	}
+
+	@Override
+	public Client getClientByEmail(String email) {
+		return clientRepository.findByEmail(email);
+	}
+
+	@Override
+	public boolean removeClient(Integer id) {
 		Client client = getClientById(id);
 		if (client != null) {
 			clientRepository.delete(client);
+			return true;
 		}	
+		return false;
 	}
-	
+
 }

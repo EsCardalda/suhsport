@@ -20,21 +20,25 @@
 	<div th:replace="fragments/header :: header">...</div>
 	<div class="container">
 	
-	<h1 th:if="{${client.id} != 0}"> Cliente X</h1>
+	<h1 th:if="${client.id} != 0"> Cliente <span th:text="${client.firstName}"></span></h1>
 	
 	<form action="#" th:action="@{/clients/addclient}" method="post" th:object="${client}">
 		<div class="form-row">
 			<div class="form-group col-md-4">
 				<label for="inputFirstName" class="col-form-label">Nombre</label> 
-				<input type="text" class="form-control" id="inputFirstName" placeholder="Nombre" th:field="*{firstName}" th:value="*{firstName}"/>
+				<input type="text" class="form-control" id="inputFirstName" placeholder="Nombre" th:field="*{firstName}" th:value="*{firstName}" th:classappend="${#fields.hasErrors('firstName')} ? is-invalid : ''"/>
+				<p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
+				
 			</div>	
 			<div class="form-group col-md-4">
 				<label for="inputLastName1" class="col-form-label">Primer apellido</label> 
-				<input type="text" class="form-control" id="inputLastName1" placeholder="Primer apellido" th:field="*{lastName1}" th:value="*{lastName1}" />
+				<input type="text" class="form-control" id="inputLastName1" placeholder="Primer apellido" th:field="*{lastName1}" th:value="*{lastName1}" th:classappend="${#fields.hasErrors('lastName1')} ? is-invalid : ''"/>
+				<p th:if="${#fields.hasErrors('lastName1')}" th:errors="*{lastName1}"></p>				
 			</div>
 			<div class="form-group col-md-4">
 				<label for="inputLastName2" class="col-form-label">Segundo apellido</label> 
-				<input type="text" class="form-control" id="inputLastName2" placeholder="egundo apellido" th:field="*{lastName2}" th:value="*{lastName2}" />
+				<input type="text" class="form-control" id="inputLastName2" placeholder="Segundo apellido" th:field="*{lastName2}" th:value="*{lastName2}" th:classappend="${#fields.hasErrors('lastName2')} ? is-invalid : ''"/>
+			 	<p th:if="${#fields.hasErrors('lastName2')}" th:errors="*{lastName2}"></p>
 			</div>	
 		</div>
 
@@ -42,15 +46,18 @@
 		<div class="form-row">
 			<div class="form-group col-md-4">
 				<label for="inputEmail" class="col-form-label">Correo electrónico</label> 
-				<input type="email" class="form-control" id="inputEmail" placeholder="Correo electrónico" th:field="*{email}" th:value="*{email}" />
+				<input type="email" class="form-control" id="inputEmail" placeholder="Correo electrónico" th:field="*{email}" th:value="*{email}" th:classappend="${#fields.hasErrors('email')} ? is-invalid : ''"/>
+				<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
 			</div>
 			<div class="form-group col-md-4">
 				<label for="inputPhone" class="col-form-label">Teléfono</label>
-				<input type="tel" class="form-control" id="inputPhone" placeholder="Teléfono" th:field="*{phone}" th:value="*{phone}" />
+				<input type="tel" class="form-control" id="inputPhone" placeholder="Teléfono" th:field="*{phone}" th:value="*{phone}" th:classappend="${#fields.hasErrors('phone')} ? is-invalid : ''"/>
+				<p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
 			</div>
 			<div class="form-group col-md-4">
 				<label for="inputZip" class="col-form-label">Código Postal</label> 
-				<input type="number" class="form-control" id="inputZip" placeholder="Código postal" th:field="*{zipCode}" th:value="*{zipCode}" />
+				<input type="number" min="0" class="form-control" id="inputZip" placeholder="Código postal" th:field="*{zipCode}" th:value="*{zipCode}" th:classappend="${#fields.hasErrors('zipCode')} ? is-invalid : ''"/>
+				<p th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}"></p>
 			</div>
 		</div>
 		
@@ -81,7 +88,9 @@
 
 		<button type="submit" class="btn btn-warning">Guardar</button>
 		<button type="reset" class="btn btn-defaulrr">Borrar</button>
-		<button type="button" class="btn btn-primary">Cancelar</button>		
+		<a href="#" th:href="@{/clients/showclients}">
+		<button type="button" class="btn btn-primary">Cancelar</button>	
+		</a>	
 	</form>
 	</div>
 	<div th:replace="fragments/footer :: footer"></div>
