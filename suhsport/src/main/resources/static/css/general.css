@@ -5,45 +5,72 @@
 /** END GENERAL **/
 
 /*** BUTTONS ***/
-.btn-index{
+.btn-index {
 	cursor: pointer;
 	border: none;
 	width: 100%;
-	height: 400px;
+	height: 300px;
 	font-size: 45px;
-	text-decoration: blink!important;
+	text-shadow: 3px 3px black;
 }
 
-.a-index{
-	text-decoration: blink!important;
+.a-index {
+	text-decoration: none !important;
+	z-index: 99999;
+}
+
+.w-100 {
+	padding-bottom: 20px;
 }
 
 
 .btn-new-client {
 	background: #CCCCCC url(../img/new_client.jpg) no-repeat center;
-	cursor: pointer;
-	border: none;
-	width: 100%;
-	height: 300px;
-	color:white;
+	background-size: cover;
+	color: white;
 }
 
-
-.btn-new-client:hover {
+.btn-new-client:hover, .btn-new-client:active {
 	font-size: 50px;
 	background: url(../img/new_client.jpg) center center no-repeat;
+	border-radius: .25rem;
+}
+
+.btn-new-client:hover::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-image: linear-gradient(to bottom right, #FFA500,  #9A9B9F);
+/* 		background-image: linear-gradient(to bottom right, #002f4b, #dc4225); */
+	opacity: .2;
+	margin: 0px 15px;
+}
+
+.btn-new-payment{
+	background: #CCCCCC url(../img/new_payment.jpg) no-repeat center;
 	background-size: cover;
-	  
-	&:before {
-		content: '';
-		position: absolute;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		background-image: linear-gradient(to bottom right,#002f4b,#dc4225);
-		opacity: .6; 
-  	}
+	color: white;
+}
+.btn-new-payment:hover, .btn-new-payment:active {
+	font-size: 50px;
+	background: url(../img/new_payment.jpg) center center no-repeat;
+	border-radius: .25rem;
+}
+
+.btn-new-payment:hover::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-image: linear-gradient(to bottom right, #FFA500,  #9A9B9F);
+/* 		background-image: linear-gradient(to bottom right, #002f4b, #dc4225); */
+	opacity: .2;
+	margin: 0px 15px;
 }
 
 
@@ -51,7 +78,8 @@
 
 /** LOGIN **/
 .login-body {
-	background: #CCCCCC url(../img/suhsport_portada.jpg) no-repeat center fixed;
+	background: #CCCCCC url(../img/suhsport_portada.jpg) no-repeat center
+		fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;

@@ -2,16 +2,36 @@ package com.escaravellovermello.model;
 
 import java.sql.Timestamp;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class ClientModel {
 
 	private Integer id;
+
+	@NotNull
+	@NotEmpty(message="No puede estar vacío")
+	@Size(max = 50, message="Máximo 50 caracteres")
 	private String firstName;
+	
+	@NotNull
+	@NotEmpty(message="No puede estar vacío")
+	@Size(max = 50 , message="Máximo 50 caracteres")
 	private String lastName1;
+
+	@Size(max = 50, message="Máximo 50 caracteres")
 	private String lastName2;
+	
 	private Timestamp registrationDate;
+	
 	private Timestamp modificationDate;
+	
 	private Integer zipCode;
+	
 	private String phone;
+	
 	private String email;
 
 	public ClientModel() {

@@ -11,10 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "client")
@@ -25,19 +21,12 @@ public class Client {
 	@Column(name = "id_client")
 	private Integer id;
 
-	@NotNull
-	@NotEmpty(message="No puede estar vacío")
-	@Size(max = 50, message="Máximo 50 caracteres")
 	@Column(name = "first_name", nullable = false, length = 50)
 	private String firstName;
 
-	@NotNull
-	@NotEmpty(message="No puede estar vacío")
-	@Size(max = 50 , message="Máximo 50 caracteres")
 	@Column(name = "last_name_1", nullable = false, length = 50)
 	private String lastName1;
 
-	@Size(max = 50, message="Máximo 50 caracteres")
 	@Column(name = "last_name_2", length = 50)
 	private String lastName2;
 

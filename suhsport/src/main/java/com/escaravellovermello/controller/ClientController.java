@@ -19,7 +19,6 @@ import com.escaravellovermello.constant.ModelResult;
 import com.escaravellovermello.constant.Utils;
 import com.escaravellovermello.constant.ViewConstant;
 import com.escaravellovermello.converter.ClientConverter;
-import com.escaravellovermello.entity.Client;
 import com.escaravellovermello.model.ClientModel;
 import com.escaravellovermello.service.ClientService;
 
@@ -50,12 +49,12 @@ public class ClientController {
 	
 	
 	@PostMapping("/addclient")
-	public ModelAndView addClient(@Valid @ModelAttribute("client") Client client, BindingResult bindingResult) {
+	public ModelAndView addClient(@Valid @ModelAttribute("client") ClientModel clientModel, BindingResult bindingResult) {
 		ModelResult mr = ModelResult.ADD_FAIL;
 		ModelAndView mav = new ModelAndView("redirect:"+ViewConstant.R_CLIENTS_LIST);
 		
 		//Errors before insert
-		bindingResult = getErrosFromFields(client, bindingResult);
+		bindingResult = getErrosFromFields(clientModel, bindingResult);
 		if(bindingResult.hasErrors()) {
 			LOG.info("METHOD: addClient() -- HAS ERROR: Error=" + bindingResult.toString());
 			mav.setViewName(ViewConstant.CLIENT_FORM);
@@ -63,11 +62,11 @@ public class ClientController {
 		}
 			
 		//Insert
-		if (null != clientService.addClient(clientConverter.entity2model(client))) {
+		if (null != clientService.addClient(clientModel)) {
 			mr = ModelResult.ADD_OK;
 		}
 		mav.addObject("result", mr.getValue());
-		LOG.info("METHOD: addClient() -- PARAMS: ClientModel=" + client.toString() + " -- RESULT: " + mr);
+		LOG.info("METHOD: addClient() -- PARAMS: ClientModel=" + clientModel.toString() + " -- RESULT: " + mr);
 		LOG.info("Redirect to " + ViewConstant.R_CLIENTS_LIST);
 		return mav;
 	}
@@ -101,24 +100,24 @@ public class ClientController {
 	}
 	
 	
-	private BindingResult getErrosFromFields(Client client, BindingResult bindingResult) {
-		if(!client.getEmail().isEmpty()) {
+	private BindingResult getErrosFromFields(ClientModel clientModel, BindingResult bindingResult) {
+		if(!clientModel.getEmail().isEmpty()) {
 			String emailRegex = "^((\"[\\w-\\s]+\")|([\\w-]+(?:\\.[\\w-]+)*)|(\"[\\w-\\s]+\")([\\w-]+(?:\\.[\\w-]+)*))(@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)$)|(@\\[?((25[0-5]\\.|2[0-4][0-9]\\.|1[0-9]{2}\\.|[0-9]{1,2}\\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\\]?$)";
-			bindingResult = Utils.validateFormWhithPattern(emailRegex,client.getEmail(), bindingResult, "client", "email", "Formato de email erróneo");
-			if(!client.getEmail().isEmpty() && null != clientService.getClientByEmail(client.getEmail())){
+			bindingResult = Utils.validateFormWhithPattern(emailRegex,clientModel.getEmail(), bindingResult, "client", "email", "Formato de email erróneo");
+			if(null == clientModel.getId() && null != clientService.getClientByEmail(clientModel.getEmail())){
 				Utils.duplicatedField(bindingResult, "client", "email", "Ya existe un usuario con este email");
 			}
 		}
 		
-		if(!client.getPhone().isEmpty()) {
-			bindingResult = Utils.validateFormWhithPattern("^(\\d{9})$", client.getPhone(), bindingResult, "client", "phone", "Formato de teléfono erróneo");
-			if(null != clientService.getClientByPhone(client.getPhone())) {
+		if(!clientModel.getPhone().isEmpty()) {
+			bindingResult = Utils.validateFormWhithPattern("^(\\d{9})$", clientModel.getPhone(), bindingResult, "client", "phone", "Formato de teléfono erróneo");
+			if(null == clientModel.getId() && null != clientService.getClientByPhone(clientModel.getPhone())) {
 				Utils.duplicatedField(bindingResult, "client", "phone", "Ya existe un usuario con este teléfono");
 			}
 		}
 		
-		if(client.getZipCode() != null) {
-			bindingResult = Utils.validateFormWhithPattern("^(\\d{5})$", client.getZipCode().toString(), bindingResult, "client", "zipCode", "Formato de código postal erróneo");
+		if(clientModel.getZipCode() != null) {
+			bindingResult = Utils.validateFormWhithPattern("^(\\d{5})$", clientModel.getZipCode().toString(), bindingResult, "client", "zipCode", "Formato de código postal erróneo");
 		}
 		return bindingResult;
 	}
