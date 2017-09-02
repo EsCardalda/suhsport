@@ -67,25 +67,25 @@ public class ClientController {
 		}
 		mav.addObject("result", mr.getValue());
 		LOG.info("METHOD: addClient() -- PARAMS: ClientModel=" + clientModel.toString() + " -- RESULT: " + mr);
-		LOG.info("Redirect to " + ViewConstant.R_CLIENTS_LIST);
+		LOG.info("Returning to " + ViewConstant.R_CLIENTS_LIST);
 		return mav;
 	}
 	
-
 	@GetMapping("/showclients")
 	public ModelAndView showClients(@ModelAttribute("result") String result) {
 		 ModelAndView mav = new ModelAndView(ViewConstant.CLIENTS);
 		 mav.addObject("clients", clientService.listAllClients());
 		 mav.addObject("result", result);
+		 LOG.info("Returning to " + ViewConstant.CLIENTS +". Show clients.");
 		 return mav;
 	}
-	
-	
+		
 	@GetMapping("/cancel")
 	public String cancel() {
+		LOG.info("Redirect to " + ViewConstant.R_CLIENTS_LIST );
 		return "redirect:" + ViewConstant.R_CLIENTS_LIST;
 	}
-	
+	 
 	@GetMapping("/removeclient")
 	public ModelAndView removecontact(@RequestParam(name = "id", required = true) Integer id) {
 		ModelAndView mav = new ModelAndView("redirect:"+ViewConstant.R_CLIENTS_LIST);

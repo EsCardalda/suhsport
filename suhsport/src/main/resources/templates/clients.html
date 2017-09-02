@@ -110,10 +110,10 @@
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">Cerrar</button>
 
-					<input type="hidden" id="deleteVersionHiddenId" name="deleteVersionHiddenId" value="0" /> 
-					<input type="hidden" id="deleteVersionHiddenName" name="deleteVersionHiddenName" value="0" /> 
+					<input type="hidden" id="deleteClientHiddenId" name="deleteClientHiddenId" value="0" /> 
+					<input type="hidden" id="deleteClientHiddenName" name="deleteClientHiddenName" value="0" /> 
 					
-					<a class="btn-delete" id="deleteVersionHiddenbtn">
+					<a class="btn-delete" id="deleteClientHiddenbtn">
 						<button type="button" class="btn btn-danger">Borrar</button>
 					</a>
 				</div>
@@ -129,15 +129,15 @@
 	<script type="text/javascript">
 		$('#clientModal').on('show.bs.modal', function (e) {
 			$(this).find('.btn-delete').attr('href', $(e.relatedTarget).data('href'));
-		  	$('#deleteVersionHiddenId').val($(this).find('.btn-delete').attr('href'));
+		  	$('#deleteClientHiddenId').val($(this).find('.btn-delete').attr('href'));
 
 			$(this).find('.btn-delete').attr('name', $(e.relatedTarget).data('name'));
 		  	$('.delete-username').text($(this).find('.btn-delete').attr('name'));
 		});
 		
-		$('#deleteVersionHiddenbtn').click(function (e){
+		$('#deleteClientHiddenbtn').click(function (e){
 			  e.preventDefault();
-			  var id = $('#deleteVersionHiddenId').val();
+			  var id = $('#deleteClientHiddenId').val();
 			  document.location.href = "/clients/removeclient?id=" + id;
 			});
 	</script>

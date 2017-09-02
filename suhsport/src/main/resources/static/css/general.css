@@ -73,6 +73,9 @@
 	margin: 0px 15px;
 }
 
+.fill-width{
+	width: 100%;
+}
 
 /** END BUTTONS **/
 
@@ -121,6 +124,13 @@ input, input::-webkit-input-placeholder {
 	padding-top: 3px;
 }
 /*** END LOGIN ***/
+
+
+
+/*** TABLES ****/
+.table-container{
+	margin-top:40px;
+}
 
 /*** FOOTER ***/
 .footer {

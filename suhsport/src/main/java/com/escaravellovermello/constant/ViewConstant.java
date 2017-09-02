@@ -20,5 +20,5 @@ public class ViewConstant {
 	//Payments
 	public static final String PAYMENTS = "payments";
 	public static final String PAYMENTS_FORM = "paymentform";
-	public static final String R_PAYMENTS_LIST ="/payments/showpayments";
+	public static final String R_PAYMENT_FORM ="paymentform/client";
 }
