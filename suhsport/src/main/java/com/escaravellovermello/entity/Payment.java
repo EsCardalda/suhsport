@@ -22,6 +22,9 @@ public class Payment {
 	@Column(name = "price")
 	private Double price;
 
+	@Column(name = "month")
+	private Integer month;
+
 	@Column(name = "date")
 	private Timestamp date;
 
@@ -36,17 +39,18 @@ public class Payment {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_fee", nullable = false)
 	private Fee fee;
-	
-	//TODO: Trasferencia bancaria????
+
+	// TODO: Trasferencia bancaria????
 
 	public Payment() {
 		super();
 	}
 
-	public Payment(Integer id, Double price, Timestamp date, Client client, Activity activity, Fee fee) {
+	public Payment(Integer id, Double price, Integer month, Timestamp date, Client client, Activity activity, Fee fee) {
 		super();
 		this.id = id;
 		this.price = price;
+		this.month = month;
 		this.date = date;
 		this.client = client;
 		this.activity = activity;
@@ -67,6 +71,14 @@ public class Payment {
 
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+
+	public Integer getMonth() {
+		return month;
+	}
+
+	public void setMonth(Integer month) {
+		this.month = month;
 	}
 
 	public Timestamp getDate() {
@@ -103,8 +115,8 @@ public class Payment {
 
 	@Override
 	public String toString() {
-		return "Payment [id=" + id + ", price=" + price + ", date=" + date + ", client=" + client + ", activity="
-				+ activity + ", fee=" + fee + "]";
+		return "Payment [id=" + id + ", price=" + price + ", month=" + month + ", date=" + date + ", client=" + client
+				+ ", activity=" + activity + ", fee=" + fee + "]";
 	}
 
 }

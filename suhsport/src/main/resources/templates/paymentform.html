@@ -11,38 +11,43 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
 <!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" />
 <link href="#" th:href="@{/css/general.css}" rel="stylesheet" />
 <link href="#" th:href="@{/css/select2.css}" rel="stylesheet" />
-<script type="text/javascript" src="https://use.fontawesome.com/bb05e18015.js"></script>
+<script type="text/javascript"
+	src="https://use.fontawesome.com/bb05e18015.js"></script>
 </head>
 
 <body>
 	<div th:replace="fragments/header :: header">...</div>
 	<div class="container">
-	
-	<div th:if="${result == 'remove_fail'}" class="alert alert-danger alert-dismissible fade show"
-			role="alert">
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+
+		<div th:if="${result == 'remove_fail'}"
+			class="alert alert-danger alert-dismissible fade show" role="alert">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
 				<span aria-hidden="true">&times;</span>
-			</button>			
-			<strong><i class="fa fa-exclamation-circle" aria-hidden="true"></i></strong> Error en el borrado de pago	
+			</button>
+			<strong><i class="fa fa-exclamation-circle"
+				aria-hidden="true"></i></strong> Error en el borrado de pago
 		</div>
 
-		<div th:if="${result == 'remove_ok'}" class="alert alert-success alert-dismissible fade show"
-			role="alert">
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		<div th:if="${result == 'remove_ok'}"
+			class="alert alert-success alert-dismissible fade show" role="alert">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
 				<span aria-hidden="true">&times;</span>
-			</button>				
-			<strong><i class="fa fa-check-square-o" aria-hidden="true"></i></strong> Pago borrado correctamente
+			</button>
+			<strong><i class="fa fa-check-square-o" aria-hidden="true"></i></strong>
+			Pago borrado correctamente
 		</div>
 
-		<form action="#" th:action="@{/payments/paymentform/client}"
-			method="get" th:object="${client}">
+		<form action="#" th:action="@{/payments/paymentform/client}" method="get" th:object="${client}">
 
 			<div class="form-inline">
 				<div class="form-group col-md-10">
-					<select class="form-control col-md-12" id="selectActivity"
+					<select class="form-control col-md-12" id="selectClient"
 						th:field="*{id}">
 						<option value="0">Selecciona un cliente</option>
 						<option th:each="mClient : ${clients}" th:value="${mClient.id}"
@@ -56,63 +61,99 @@
 				</div>
 			</div>
 		</form>
-		<!-- 	<form action="#" th:action="@{/payments/paymentform}" method="post" th:object="${client}"> -->
-		<!-- 			<div class="form-row"> -->
-		<!-- 			<div class="form-group col-md-4"> -->
-		<!-- 				<label for="inputFirstName" class="col-form-label">Nombre</label>  -->
-		<!-- 				<input type="text" class="form-control" id="inputFirstName" placeholder="Nombre" th:field="*{firstName}" th:value="*{firstName}" th:classappend="${#fields.hasErrors('firstName')} ? is-invalid : ''"/> -->
-		<!-- 				<p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p> -->
+		<form action="#" th:action="@{/payments/addpayment}" method="post" th:object="${payment}">
+			<div class="form-row">
 
-		<!-- 			</div>	 -->
-		<!-- 			<div class="form-group col-md-4"> -->
-		<!-- 				<label for="inputLastName1" class="col-form-label">Primer apellido</label>  -->
-		<!-- 				<input type="text" class="form-control" id="inputLastName1" placeholder="Primer apellido" th:field="*{lastName1}" th:value="*{lastName1}" th:classappend="${#fields.hasErrors('lastName1')} ? is-invalid : ''"/> -->
-		<!-- 				<p th:if="${#fields.hasErrors('lastName1')}" th:errors="*{lastName1}"></p>				 -->
-		<!-- 			</div> -->
-		<!-- 			<div class="form-group col-md-4"> -->
-		<!-- 				<label for="inputLastName2" class="col-form-label">Segundo apellido</label>  -->
-		<!-- 				<input type="text" class="form-control" id="inputLastName2" placeholder="Segundo apellido" th:field="*{lastName2}" th:value="*{lastName2}" th:classappend="${#fields.hasErrors('lastName2')} ? is-invalid : ''"/> -->
-		<!-- 			 	<p th:if="${#fields.hasErrors('lastName2')}" th:errors="*{lastName2}"></p> -->
-		<!-- 			</div>	 -->
-		<!-- 		</div> -->
+				<!-- TODO: Hidden with client id -->
+				<!-- 				<div class="form-group col-md-4"> -->
+				<!-- 					<label for="selectMonth" class="col-form-label">Mes</label> -->
+
+				<!-- 					<select class="form-control col-md-12" id="selectMonth" -->
+				<!-- 						th:field="*{month}"> -->
+				<!-- 						<option th:each="mMonths : ${months}"	th:value="${mMonths.id}" th:text="${mMonthsame}"></option> -->
+				<!-- 					</select>				 -->
+				<!-- 					<p th:if="${#fields.hasErrors('month')}" th:errors="*{month}"></p> -->
+				<!-- 				</div> -->
+
+				<div class="form-group col-md-4">
+					<label for="selectActivity" class="col-form-label">Actividad</label>
+
+					<select class="form-control col-md-12" id="selectActivity"
+						th:field="*{activity.id}">
+						<option value="0">Selecciona una actividad</option>
+						<option th:each="mActivity : ${activities}"
+							th:value="${mActivity.id}" th:text="${mActivity.name}"></option>
+					</select>
+					<p th:if="${#fields.hasErrors('activity')}" th:errors="*{activity}"></p>
+				</div>
+			</div>
+
+			<div class="form-group col-md-4">
+				<label for="selectFee" class="col-form-label">Cuota</label> <select
+					class="form-control col-md-12" id="selectFee" th:field="*{fee.id}">
+					<option value="0">Selecciona una cuota</option>
+					<option th:each="mFee: ${fees}" th:value="${mFee.id}"
+						th:text="${mFee.name}"></option>
+				</select>
+				<p th:if="${#fields.hasErrors('fee')}" th:errors="*{fee}"></p>
+			</div>
 
 
-		<!-- 		<div class="form-row"> -->
-		<!-- 			<div class="form-group col-md-4"> -->
-		<!-- 				<label for="inputEmail" class="col-form-label">Correo electrónico</label>  -->
-		<!-- 				<input type="email" class="form-control" id="inputEmail" placeholder="Correo electrónico" th:field="*{email}" th:value="*{email}" th:classappend="${#fields.hasErrors('email')} ? is-invalid : ''"/> -->
-		<!-- 				<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p> -->
-		<!-- 			</div> -->
-		<!-- 			<div class="form-group col-md-4"> -->
-		<!-- 				<label for="inputPhone" class="col-form-label">Teléfono</label> -->
-		<!-- 				<input type="tel" class="form-control" id="inputPhone" placeholder="Teléfono" th:field="*{phone}" th:value="*{phone}" th:classappend="${#fields.hasErrors('phone')} ? is-invalid : ''"/> -->
-		<!-- 				<p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p> -->
-		<!-- 			</div> -->
-		<!-- 			<div class="form-group col-md-4"> -->
-		<!-- 				<label for="inputZip" class="col-form-label">Código Postal</label>  -->
-		<!-- 				<input type="number" min="0" class="form-control" id="inputZip" placeholder="Código postal" th:field="*{zipCode}" th:value="*{zipCode}" th:classappend="${#fields.hasErrors('zipCode')} ? is-invalid : ''"/> -->
-		<!-- 				<p th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}"></p> -->
-		<!-- 			</div> -->
-		<!-- 		</div> -->
-		
-		
-		
-		<div th:if="${payments != null or not #lists.isEmpty(payments)}" class="table-container">
+			<!-- 			<div class="form-group col-md-4"> -->
+<!-- 				<label for="selectActivity" class="col-form-label">Descuento</label> <select -->
+<!-- 					class="form-control col-md-12" id="selectActivity" -->
+<!-- 					th:field="*{activity.id}"> -->
+<!-- 					<option th:each="mActivity : ${activities}" -->
+<!-- 						th:value="${mActivity.id}" th:text="${mActivity.name}"></option> -->
+<!-- 				</select> -->
+<!-- 				<p th:if="${#fields.hasErrors('activity')}" th:errors="*{activity}"></p> -->
+<!-- 			</div> -->
+
+
+
+	<!-- 		<div class="form-row"> -->
+			<!-- 			<div class="form-group col-md-4"> -->
+			<!-- 				<label for="inputEmail" class="col-form-label">Correo electrónico</label>  -->
+			<!-- 				<input type="email" class="form-control" id="inputEmail" placeholder="Correo electrónico" th:field="*{email}" th:value="*{email}" th:classappend="${#fields.hasErrors('email')} ? is-invalid : ''"/> -->
+			<!-- 				<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p> -->
+			<!-- 			</div> -->
+			<!-- 			<div class="form-group col-md-4"> -->
+			<!-- 				<label for="inputPhone" class="col-form-label">Teléfono</label> -->
+			<!-- 				<input type="tel" class="form-control" id="inputPhone" placeholder="Teléfono" th:field="*{phone}" th:value="*{phone}" th:classappend="${#fields.hasErrors('phone')} ? is-invalid : ''"/> -->
+			<!-- 				<p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p> -->
+			<!-- 			</div> -->
+			<!-- 			<div class="form-group col-md-4"> -->
+			<!-- 				<label for="inputZip" class="col-form-label">Código Postal</label>  -->
+			<!-- 				<input type="number" min="0" class="form-control" id="inputZip" placeholder="Código postal" th:field="*{zipCode}" th:value="*{zipCode}" th:classappend="${#fields.hasErrors('zipCode')} ? is-invalid : ''"/> -->
+			<!-- 				<p th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}"></p> -->
+			<!-- 			</div> -->
+			<!-- 		</div> -->
+
+			<button type="submit" class="btn btn-warning">Guardar</button>
+			<button type="reset" class="btn btn-defaulst">Borrar</button>
+			<a href="#" th:href="@{/payments/paymentform/client}">
+				<button type="button" class="btn btn-primary">Cancelar</button>
+			</a>
+		</form>
+
+		<div th:if="${payments != null or not #lists.isEmpty(payments)}"
+			class="table-container">
 			<table class="table">
 				<thead>
 					<tr>
 						<th>Fecha</th>
 						<th>Actividad</th>
 						<th>Cuota</th>
-						<th>Pago</th>				
+						<th>Pago</th>
 						<th>Acciones</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="payment : ${payments}">
-						<td><span th:text="${#dates.format(payment.date,'dd-MM-yyyy')}"></span></td>
+						<td><span
+							th:text="${#dates.format(payment.date,'dd-MM-yyyy')}"></span></td>
 						<td><span th:text="${payment.activity.name}"></span></td>
-						<td><span th:text="${payment.fee.name}"></span></td> 											
+						<td><span th:text="${payment.fee.name}"></span></td>
 						<td><span th:text="${payment.price}"></span></td>
 						<td>
 							<button type="button" class="btn btn-danger"
@@ -124,18 +165,13 @@
 					</tr>
 				</tbody>
 			</table>
-		</div>
-		<button type="submit" class="btn btn-warning">Guardar</button>
-		<button type="reset" class="btn btn-defaulrr">Borrar</button>
-		<a href="#" th:href="@{/clients/showclients}">
-			<button type="button" class="btn btn-primary">Cancelar</button>
-		</a>
-		<!-- 	</form> -->
+		</div>	
 	</div>
-	
-	
-	
-	<div class="modal fade" id="clientModal" tabindex="-1" role="dialog" aria-labelledby="clientModalLabel" aria-hidden="true">
+
+
+
+	<div class="modal fade" id="clientModal" tabindex="-1" role="dialog"
+		aria-labelledby="clientModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -146,47 +182,61 @@
 					</button>
 				</div>
 				<div class="modal-body">
-				  ¿Deseas eliminar el pago '<span class="delete-date"></span>'?			
+					¿Deseas eliminar el pago '<span class="delete-date"></span>'?
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">Cerrar</button>
 
-					<input type="hidden" id="deletePaymentHiddenId" name="deletePaymentHiddenId" value="0" /> 
-					<input type="hidden" id="deletePaymentHiddenName" name="deletePaymentHiddenName" value="0" /> 
-					
-					<a class="btn-delete" id="deletePaymentHiddenbtn">
+					<input type="hidden" id="deletePaymentHiddenId"
+						name="deletePaymentHiddenId" value="0" /> <input type="hidden"
+						id="deletePaymentHiddenName" name="deletePaymentHiddenName"
+						value="0" /> <a class="btn-delete" id="deletePaymentHiddenbtn">
 						<button type="button" class="btn btn-danger">Borrar</button>
 					</a>
 				</div>
 			</div>
 		</div>
 	</div>
-	
+
 	<div th:replace="fragments/footer :: footer"></div>
 
-	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+	<script type="text/javascript"
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="#" th:src="@{/js/select2.js}"></script>
 
 	<script type="text/javascript">
-		$('#selectActivity').select2({
+		$('#selectClient').select2({
 			allowClear : true
 		});
 		
-		$('#clientModal').on('show.bs.modal', function (e) {
-			$(this).find('.btn-delete').attr('href', $(e.relatedTarget).data('href'));
-		  	$('#deletePaymentHiddenId').val($(this).find('.btn-delete').attr('href'));
-
-			$(this).find('.btn-delete').attr('name', $(e.relatedTarget).data('name'));
-		  	$('.delete-date').text($(this).find('.btn-delete').attr('name'));
+		$('#selectFee').select2({
+			allowClear : true
 		});
-		
-		$('#deletePaymentHiddenbtn').click(function (e){
-			  e.preventDefault();
-			  var id = $('#deletePaymentHiddenId').val();
-			  document.location.href = "/payments/removepayment?id=" + id;
+		selectFee
+
+		$('#clientModal').on(
+				'show.bs.modal',
+				function(e) {
+					$(this).find('.btn-delete').attr('href',
+							$(e.relatedTarget).data('href'));
+					$('#deletePaymentHiddenId').val(
+							$(this).find('.btn-delete').attr('href'));
+
+					$(this).find('.btn-delete').attr('name',
+							$(e.relatedTarget).data('name'));
+					$('.delete-date').text(
+							$(this).find('.btn-delete').attr('name'));
+				});
+
+		$('#deletePaymentHiddenbtn').click(function(e) {
+			e.preventDefault();
+			var id = $('#deletePaymentHiddenId').val();
+			document.location.href = "/payments/removepayment?id=" + id;
 		});
 	</script>
 

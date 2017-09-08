@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Range;
+
 import com.escaravellovermello.entity.Activity;
 import com.escaravellovermello.entity.Client;
 import com.escaravellovermello.entity.Fee;
@@ -14,6 +16,10 @@ public class PaymentModel {
 
 	@NotNull
 	private Double price;
+
+	@NotNull
+	@Range(min = 1, max = 12)
+	private Integer month;
 
 	@NotNull
 	private Timestamp date;
@@ -27,13 +33,17 @@ public class PaymentModel {
 	@NotNull
 	private Fee fee;
 
+
 	public PaymentModel() {
+		super();
 	}
 
-	public PaymentModel(Integer id, Double price, Timestamp date, Client client, Activity activity, Fee fee) {
+	public PaymentModel(Integer id, Double price, Integer month, Timestamp date, Client client, Activity activity,
+			Fee fee) {
 		super();
 		this.id = id;
 		this.price = price;
+		this.month = month;
 		this.date = date;
 		this.client = client;
 		this.activity = activity;
@@ -54,6 +64,14 @@ public class PaymentModel {
 
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+
+	public Integer getMonth() {
+		return month;
+	}
+
+	public void setMonth(Integer month) {
+		this.month = month;
 	}
 
 	public Timestamp getDate() {
@@ -90,8 +108,8 @@ public class PaymentModel {
 
 	@Override
 	public String toString() {
-		return "PaymentModel [id=" + id + ", price=" + price + ", date=" + date + ", client=" + client + ", activity="
-				+ activity + ", fee=" + fee + "]";
+		return "Payment [id=" + id + ", price=" + price + ", month=" + month + ", date=" + date + ", client=" + client
+				+ ", activity=" + activity + ", fee=" + fee + "]";
 	}
 
 }
