@@ -1,13 +1,13 @@
 package com.escaravellovermello.model;
 
 import java.sql.Timestamp;
-
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
 
 import com.escaravellovermello.entity.Activity;
 import com.escaravellovermello.entity.Client;
+import com.escaravellovermello.entity.Discount;
 import com.escaravellovermello.entity.Fee;
 
 public class PaymentModel {
@@ -33,13 +33,14 @@ public class PaymentModel {
 	@NotNull
 	private Fee fee;
 
+	private Discount discount;
 
 	public PaymentModel() {
 		super();
 	}
 
 	public PaymentModel(Integer id, Double price, Integer month, Timestamp date, Client client, Activity activity,
-			Fee fee) {
+			Fee fee, Discount discount) {
 		super();
 		this.id = id;
 		this.price = price;
@@ -48,6 +49,7 @@ public class PaymentModel {
 		this.client = client;
 		this.activity = activity;
 		this.fee = fee;
+		this.discount = discount;
 	}
 
 	public Integer getId() {
@@ -106,10 +108,18 @@ public class PaymentModel {
 		this.fee = fee;
 	}
 
+	public Discount getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(Discount discount) {
+		this.discount = discount;
+	}
+
 	@Override
 	public String toString() {
 		return "Payment [id=" + id + ", price=" + price + ", month=" + month + ", date=" + date + ", client=" + client
-				+ ", activity=" + activity + ", fee=" + fee + "]";
+				+ ", activity=" + activity + ", fee=" + fee + ", discount=" + discount + "]";
 	}
 
 }

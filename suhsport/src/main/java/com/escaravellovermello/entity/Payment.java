@@ -40,13 +40,18 @@ public class Payment {
 	@JoinColumn(name = "id_fee", nullable = false)
 	private Fee fee;
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_discount" )
+	private Discount discount;
+	
 	// TODO: Trasferencia bancaria????
 
 	public Payment() {
 		super();
 	}
 
-	public Payment(Integer id, Double price, Integer month, Timestamp date, Client client, Activity activity, Fee fee) {
+	public Payment(Integer id, Double price, Integer month, Timestamp date, Client client, Activity activity, Fee fee,
+			Discount discount) {
 		super();
 		this.id = id;
 		this.price = price;
@@ -55,6 +60,7 @@ public class Payment {
 		this.client = client;
 		this.activity = activity;
 		this.fee = fee;
+		this.discount = discount;
 	}
 
 	public Integer getId() {
@@ -113,10 +119,18 @@ public class Payment {
 		this.fee = fee;
 	}
 
+	public Discount getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(Discount discount) {
+		this.discount = discount;
+	}
+
 	@Override
 	public String toString() {
 		return "Payment [id=" + id + ", price=" + price + ", month=" + month + ", date=" + date + ", client=" + client
-				+ ", activity=" + activity + ", fee=" + fee + "]";
+				+ ", activity=" + activity + ", fee=" + fee + ", discount=" + discount + "]";
 	}
 
 }

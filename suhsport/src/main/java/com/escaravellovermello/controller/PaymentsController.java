@@ -22,6 +22,7 @@ import com.escaravellovermello.model.ClientModel;
 import com.escaravellovermello.model.PaymentModel;
 import com.escaravellovermello.service.ActivityService;
 import com.escaravellovermello.service.ClientService;
+import com.escaravellovermello.service.DiscountService;
 import com.escaravellovermello.service.FeeService;
 import com.escaravellovermello.service.PaymentService;
 
@@ -43,6 +44,10 @@ public class PaymentsController {
 	private ClientService clientService;
 
 	@Autowired
+	@Qualifier("discountServiceImplementation")
+	private DiscountService discountService;
+	
+	@Autowired
 	@Qualifier("paymentServiceImplementation")
 	private PaymentService paymentService;
 	
@@ -63,6 +68,7 @@ public class PaymentsController {
 		mav.addObject("clients", clientService.listAllClients());
 		mav.addObject("activities", activityService.listAllActivities());
 		mav.addObject("fees", feeService.listAllFees());
+		mav.addObject("discounts", discountService.listAllDiscounts());
 		mav.addObject("result", result);
 		LOG.info("Returning to " + ViewConstant.PAYMENTS_FORM + ". Show payments from user " + clientModel2.getId());
 		return mav;
