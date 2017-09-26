@@ -11,12 +11,10 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
 <!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" />
 <link href="#" th:href="@{/css/general.css}" rel="stylesheet" />
 <link href="#" th:href="@{/css/select2.css}" rel="stylesheet" />
-<script type="text/javascript"
-	src="https://use.fontawesome.com/bb05e18015.js"></script>
+<script type="text/javascript" src="https://use.fontawesome.com/bb05e18015.js"></script>
 </head>
 
 <body>
@@ -61,84 +59,74 @@
 				</div>
 			</div>
 		</form>
-		<form action="#" th:action="@{/payments/addpayment}" method="post" th:object="${payment}">
-			<div class="form-row">
+		<div id="divPaymentForm" th:if="${payments != null or not #lists.isEmpty(payments)}">
+			<form action="#" th:action="@{/payments/addpayment}" method="post" th:object="${payment}">
+				<legend>Nuevo pago</legend>
+				<div class="form-row">
+					<div class="form-group col-md-4">
+						<label for="selectActivity" class="col-form-label">Actividad</label>	
+						<select class="form-control col-md-12" id="selectActivity" th:field="*{activity.id}" required="required">
+							<option th:each="mActivity : ${activities}"	th:value="${mActivity.id}" th:text="${mActivity.name}"></option>
+						</select>
+						<p th:if="${#fields.hasErrors('activity')}" th:errors="*{activity}"></p>
+					</div>
+	
+	
+					<div class="form-group col-md-4">
+						<label for="selectFee" class="col-form-label">Cuota</label> 
+						<select class="form-control col-md-12" id="selectFee" th:field="*{fee.id}" required="required">
+							<option th:each="mFee: ${fees}" th:value="${mFee.id}" th:text="${mFee.name}"></option>
+						</select>
+						<p th:if="${#fields.hasErrors('fee')}" th:errors="*{fee}"></p>
+					</div>
+	
+	
+					<div class="form-group col-md-4">
+						<label for="selectDiscount" class="col-form-label">Descuento</label>
+						<select class="form-control col-md-12" id="selectDiscount" th:field="*{discount.id}">
+							<option th:each="mDiscount : ${discounts}" th:value="${mDiscount.id}" th:text="${mDiscount.name}"></option>
+						</select>
+						<p th:if="${#fields.hasErrors('discount')}" th:errors="*{discount}"></p>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-4">
+						<label for="selectMonth" class="col-form-label">Mes</label> 
+						<select	class="form-control col-md-12" id="selectMonth" th:field="*{month}" required="required">
+     					 </select>
+						<p th:if="${#fields.hasErrors('month')}" th:errors="*{month}"></p>
+					</div>
+					
+					<div class="form-group col-md-4">
+					    <label for="inputPrice" class="col-form-label">Pago</label> 
+						<div class="input-group">							
+							<input
+								type="number" min="0" class="form-control" id="inputPrice"
+								placeholder="Pago" th:field="*{price}" th:value="*{price}"
+								th:classappend="${#fields.hasErrors('price')} ? is-invalid : ''" required="required"/>
+							<span class="input-group-addon" id="btnGroupAddon">€</span>
 
-				<!-- TODO: Hidden with client id -->
-				<!-- 				<div class="form-group col-md-4"> -->
-				<!-- 					<label for="selectMonth" class="col-form-label">Mes</label> -->
-
-				<!-- 					<select class="form-control col-md-12" id="selectMonth" -->
-				<!-- 						th:field="*{month}"> -->
-				<!-- 						<option th:each="mMonths : ${months}"	th:value="${mMonths.id}" th:text="${mMonthsame}"></option> -->
-				<!-- 					</select>				 -->
-				<!-- 					<p th:if="${#fields.hasErrors('month')}" th:errors="*{month}"></p> -->
-				<!-- 				</div> -->
-
-				<div class="form-group col-md-4">
-					<label for="selectActivity" class="col-form-label">Actividad</label>
-
-					<select class="form-control col-md-12" id="selectActivity" th:field="*{activity.id}">
-						<option value="0">Selecciona una actividad</option>
-						<option th:each="mActivity : ${activities}"	th:value="${mActivity.id}" th:text="${mActivity.name}"></option>
-					</select>
-					<p th:if="${#fields.hasErrors('activity')}" th:errors="*{activity}"></p>
+							<p th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
+						</div>
+					</div>
 				</div>
 
+				<button type="submit" class="btn btn-warning">Guardar</button>
+				<button type="reset" class="btn btn-defaulst">Borrar</button>
+				<a href="#" th:href="@{/payments/paymentform/client}">
+					<button type="button" class="btn btn-primary">Cancelar</button>
+				</a>
+			</form>
+		</div>
 
-				<div class="form-group col-md-4">
-					<label for="selectFee" class="col-form-label">Cuota</label> <select
-						class="form-control col-md-12" id="selectFee" th:field="*{fee.id}">
-						<option value="0">Selecciona una cuota</option>
-						<option th:each="mFee: ${fees}" th:value="${mFee.id}" th:text="${mFee.name}"></option>
-					</select>
-					<p th:if="${#fields.hasErrors('fee')}" th:errors="*{fee}"></p>
-				</div>
-
-
-				<div class="form-group col-md-4">
-					<label for="selectDiscount" class="col-form-label">Descuento</label>
-					<select class="form-control col-md-12" id="selectDiscount" th:field="*{discount.id}">
-						<option value="0">Selecciona una descuento</option>						
-						<option th:each="mDiscount : ${discounts}" th:value="${mDiscount.id}" th:text="${mDiscount.name}"></option>
-					</select>
-					<p th:if="${#fields.hasErrors('discount')}" th:errors="*{discount}"></p>
-				</div>
-			</div>
-
-
-			<!-- 		<div class="form-row"> -->
-			<!-- 			<div class="form-group col-md-4"> -->
-			<!-- 				<label for="inputEmail" class="col-form-label">Correo electrónico</label>  -->
-			<!-- 				<input type="email" class="form-control" id="inputEmail" placeholder="Correo electrónico" th:field="*{email}" th:value="*{email}" th:classappend="${#fields.hasErrors('email')} ? is-invalid : ''"/> -->
-			<!-- 				<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p> -->
-			<!-- 			</div> -->
-			<!-- 			<div class="form-group col-md-4"> -->
-			<!-- 				<label for="inputPhone" class="col-form-label">Teléfono</label> -->
-			<!-- 				<input type="tel" class="form-control" id="inputPhone" placeholder="Teléfono" th:field="*{phone}" th:value="*{phone}" th:classappend="${#fields.hasErrors('phone')} ? is-invalid : ''"/> -->
-			<!-- 				<p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p> -->
-			<!-- 			</div> -->
-			<!-- 			<div class="form-group col-md-4"> -->
-			<!-- 				<label for="inputZip" class="col-form-label">Código Postal</label>  -->
-			<!-- 				<input type="number" min="0" class="form-control" id="inputZip" placeholder="Código postal" th:field="*{zipCode}" th:value="*{zipCode}" th:classappend="${#fields.hasErrors('zipCode')} ? is-invalid : ''"/> -->
-			<!-- 				<p th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}"></p> -->
-			<!-- 			</div> -->
-			<!-- 		</div> -->
-
-			<button type="submit" class="btn btn-warning">Guardar</button>
-			<button type="reset" class="btn btn-defaulst">Borrar</button>
-			<a href="#" th:href="@{/payments/paymentform/client}">
-				<button type="button" class="btn btn-primary">Cancelar</button>
-			</a>
-		</form>
-
-		<div th:if="${payments != null or not #lists.isEmpty(payments)}"
+		<div id="divPaymentsTable" th:if="${payments != null or not #lists.isEmpty(payments)}"
 			class="table-container">
-			<table class="table">
-				<thead>
+			<table class="table table-hover table-bordered">
+				<thead class="table-yellow-header">
 					<tr>
 						<th>Fecha</th>
 						<th>Actividad</th>
+						<th>Mes</th>
 						<th>Cuota</th>
 						<th>Pago</th>
 						<th>Acciones</th>
@@ -149,8 +137,9 @@
 						<td><span
 							th:text="${#dates.format(payment.date,'dd-MM-yyyy')}"></span></td>
 						<td><span th:text="${payment.activity.name}"></span></td>
-						<td><span th:text="${payment.fee.name}"></span></td>
-						<td><span th:text="${payment.price}"></span></td>
+						<td><span th:text="${payment.month}"></span></td>					
+						<td><span th:text="${payment.fee.name}+€"></span></td>
+						<td><span th:text="${payment.price}+€"></span></td>
 						<td>
 							<button type="button" class="btn btn-danger"
 								th:attr="data-href=${payment.id},data-name=${#dates.format(payment.date,'dd-MM-yyyy')}"
@@ -204,17 +193,56 @@
 	<script type="text/javascript"
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="#" th:src="@{/js/select2.js}"></script>
+	<script type="text/javascript" src="#" th:src="@{/js/moment-with-locales.js}"></script>
 
-	<script type="text/javascript">
-		$('#selectClient').select2({
-			allowClear : true
+	<script th:inline="javascript">
+		$(document).ready(function() {
+			/*<![CDATA[*/
+				
+			$('#selectClient').select2({
+			    placeholder: "Selecciona un cliente",
+			    allowClear: true	
+			});
+
+			$('#selectFee').select2({
+			    placeholder: "Selecciona una cuota",
+			    allowClear: true		    
+			});
+			$("#selectFee").val(null).trigger("change");
+
+			$('#selectDiscount').select2({
+			    placeholder: "Selecciona un descuento",
+			    allowClear: true	
+			});
+			$("#selectDiscount").val(null).trigger("change");
+
+			$('#selectActivity').select2({
+			    placeholder: "Selecciona una actividad",
+			    allowClear: true	
+			});
+			$("#selectActivity").val(null).trigger("change");
+
+			$('#selectMonth').select2({
+			    placeholder: "Selecciona un mes",
+			    allowClear: true	
+			});	
+					
+			var locale = window.navigator.userLanguage || window.navigator.language;
+			moment.locale(locale);
+
+			for (i = 0; i < 12; i++) {
+				var text = moment().add(i, 'months').format('MMMM');
+				var val = moment().add(i, 'months').format('M');
+				$('#selectMonth').append($('<option>', {
+				    value: val,
+				    text: text
+				}));
+			}
+			/*]]>*/			
 		});
+
+
 		
-		$('#selectFee').select2({
-			allowClear : true
-		});
-		selectFee
-
 		$('#clientModal').on(
 				'show.bs.modal',
 				function(e) {
@@ -234,6 +262,26 @@
 			var id = $('#deletePaymentHiddenId').val();
 			document.location.href = "/payments/removepayment?id=" + id;
 		});
+		
+		$('#selectFee').on("select2:select", function (e) { 		
+			$('#inputPrice').val(calculateTotalPayment());
+		});
+
+		$('#selectFee').on("select2:select", function (e) { 		
+			$('#inputPrice').val(calculateTotalPayment());
+		});
+		
+		function calculateTotalPayment(){
+			var cuota = 0;
+			var desc = 0;
+			if ($("#selectFee option:selected").text() != ""){
+				cuota = parseInt($("#selectFee option:selected").text());
+			}
+			if ($("#selectDiscount option:selected").text() != ""){
+				desc = parseInt($("#selectDiscount option:selected").text());
+			}
+			return cuota - desc;
+		}
 	</script>
 
 </body>

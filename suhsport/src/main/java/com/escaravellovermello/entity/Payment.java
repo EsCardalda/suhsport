@@ -40,8 +40,8 @@ public class Payment {
 	@JoinColumn(name = "id_fee", nullable = false)
 	private Fee fee;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_discount" )
+	@ManyToOne(optional = true, fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_discount", nullable = true )
 	private Discount discount;
 	
 	// TODO: Trasferencia bancaria????
